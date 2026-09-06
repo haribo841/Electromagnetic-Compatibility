@@ -1,128 +1,115 @@
 # EMC Lab Assistant
 
-Wieloplatformowa aplikacja C# i Avalonia UI prowadząca użytkownika przez
-ćwiczenia z kompatybilności elektromagnetycznej. Interfejs działa jako kreator,
-waliduje dane, składa równania matematyczne, wykonuje obliczenia i przygotowuje
-wyniki do sprawozdania.
+> Wieloplatformowy asystent laboratoriów kompatybilności elektromagnetycznej. Prowadzi przez pomiar, obliczenia, niepewność oraz przygotowanie wyników do sprawozdania.
 
-## Moduły programu
+| Pobieranie | Najprostszy start | Dokumentacja |
+| --- | --- | --- |
+| [Windows x64](https://github.com/haribo841/Electromagnetic-Compatibility/releases/download/v2.0.0/EMC_Lab_Assistant_Windows_x64.exe) | [3 kroki](#najprostszy-start) | [Instrukcja użytkowania](Documentation/Final/03_Instrukcja_uzytkowania_EMC_Lab_Assistant.docx) |
+| [Linux x64](https://github.com/haribo841/Electromagnetic-Compatibility/releases/download/v2.0.0/EMC_Lab_Assistant_Linux_x64) | [Wydanie 2.0.0](https://github.com/haribo841/Electromagnetic-Compatibility/releases/tag/v2.0.0) | [Dokumentacja techniczna](Documentation/Final/01_Dokumentacja_techniczna_EMC_Lab_Assistant.docx) |
 
-### 1. Pomiar przeników między liniami mikropaskowymi
+## Co oferuje aplikacja
 
-- pasma 1-2 GHz, 2-3 GHz oraz 7-8 GHz,
-- import 11 punktów z CSV/TXT,
-- niezależne niepewności NEXT i FEXT,
-- konwersja `|Z|lin = 10^(|Z|dB / 20)`,
-- błąd analizatora i granice wyniku,
-- statystyka, 95% przedziały ufności i wykres.
+EMC Lab Assistant jest desktopowym kreatorem do pracy na ćwiczeniach z kompatybilności elektromagnetycznej. Waliduje dane, prezentuje czytelnie sformatowane równania, oblicza niepewność i umożliwia eksport wyników.
 
-### 2. Sondy pola bliskiego w analizie emisji promieniowanej
+- **Pomiar przeników między liniami mikropaskowymi** - NEXT/FEXT, konwersja dB, błąd analizatora, statystyka i przedziały ufności.
+- **Sondy pola bliskiego** - pomiary kabla dla linii 30, 50 i 100 Ω, poprawka sondy, wzmocnienie, pole H oraz niepewność 95%.
+- **Emisja promieniowana EN 55032** - korekcja antenowa, MR, AF i IL, polaryzacja, limit klasy B i margines zgodności.
+- **Pomiary propagacyjne DVB-T** - siatka 16 punktów, obie polaryzacje, profile anteny, Eav ± T, wykres i mapy cieplne.
+- **Nauka do egzaminu** - bloki tematyczne, pytania kontrolne i kalkulatory EMC.
+- **Import i raportowanie** - CSV/TXT, pliki MATLAB w scenariuszu emisji oraz eksport wyników do CSV i DOCX.
 
-- lista kontrolna generatora, miernika R&S NRP, sondy i wzmacniacza,
-- warunki środowiskowe,
-- import CSV/TXT dla 100-1000 MHz,
-- pomiary linii 30 Ω, 50 Ω i 100 Ω,
-- edytowalne charakterystyki `K` i `Sp`,
-- pole magnetyczne w dBA/m i A/m,
-- budżet `uP`, `uK`, `uSp`, `uRep` oraz `U95 = k * uH`,
-- maksima, trendy, wykres i analiza dodatkowego nagrania.
+## Najprostszy start
 
-### 3. Emisja promieniowana - poprawka antenowa EN 55032
+1. Pobierz pakiet dla [Windows x64](https://github.com/haribo841/Electromagnetic-Compatibility/releases/download/v2.0.0/EMC_Lab_Assistant_Windows_x64.exe) albo [Linux x64](https://github.com/haribo841/Electromagnetic-Compatibility/releases/download/v2.0.0/EMC_Lab_Assistant_Linux_x64).
+2. W Windows uruchom plik <code>.exe</code>. W Linux nadaj plikowi prawo wykonywania i uruchom go:
 
-- import CSV/TXT i plików MATLAB z oryginalną strukturą `Data`,
-- wskazania `MR`, tłumienie `IL` i wysokości anteny,
-- poprawka antenowa i korekta polaryzacji pionowej,
-- pole E dla obu polaryzacji,
-- budżet niepewności, limity klasy B i margines zgodności.
+   ~~~bash
+   chmod +x EMC_Lab_Assistant_Linux_x64
+   ./EMC_Lab_Assistant_Linux_x64
+   ~~~
 
-### 4. Pomiary propagacyjne DVB-T
+3. Wybierz scenariusz, wpisz lub zaimportuj dane pomiarowe i przejdź kolejne kroki kreatora. Na końcu wyeksportuj CSV albo DOCX.
 
-- siatka 16 punktów dla polaryzacji poziomej i pionowej,
-- import CSV/TXT,
-- profile AF anteny UHALP 9108 A1 z interpolacją,
-- tryb ręcznego AF,
-- trzy konwencje wejścia: historyczna, dBµV oraz dBm/50 Ω,
-- średnia przestrzenna, niepewność i tolerancja `Eav ± T`,
-- wykres oraz mapy cieplne 4 x 4.
+## Wspierane platformy
 
-Scenariusz nr 4 jest oparty na sprawozdaniach i rekomendacjach ITU-R. Wymaga
-zatwierdzenia względem oryginalnej instrukcji prowadzącego, której nie było w
-audytowanym katalogu.
+| Środowisko | Status |
+| --- | --- |
+| Windows 10/11 x64 | gotowy samodzielny pakiet w wydaniu 2.0.0 |
+| Linux x64 | gotowy samodzielny pakiet w wydaniu 2.0.0 |
+| Windows 7 i 8.1 | nie są oficjalnie wspierane przez .NET 8 |
+| Budowanie ze źródeł | .NET 8 SDK na Windows lub Linux |
 
-### 5. Nauka
+## Przykład działania
 
-Siedem bloków tematycznych obejmuje mechanizmy zakłóceń, przesłuchy,
-uziemianie, ekranowanie, normy, aparaturę i dopasowanie. Moduł zawiera pytania
-kontrolne oraz kalkulatory długości fali, prądu pojemnościowego i napięcia
-indukowanego.
+Przykładowy przebieg badania przeników:
 
-### 6. Pokrycie materiału
+1. Wybierz pasmo 1-2 GHz i wstaw dane przykładowe lub zaimportuj CSV.
+2. Przejdź przez przeliczenie do skali liniowej i wyznaczenie błędu analizatora.
+3. Odczytaj 95% przedział ufności oraz wykres NEXT i FEXT.
+4. Zapisz dane lub raport przyciskiem <code>Eksportuj CSV</code> albo <code>Eksportuj DOCX</code>.
 
-Program jawnie wskazuje elementy, których nie uznano za wdrożone bez źródeł:
+## Zrzuty ekranu
 
-- pomiary pola dla ochrony środowiska,
-- badanie analizatora widma i pomiar promieniowania,
-- zatwierdzenie instrukcji pomiarów propagacyjnych,
-- wykłady cz02 i cz07.
+<p align="center">
+  <img src="Documentation/Assets/screenshots/01-wybor-scenariusza.png" alt="Wybór scenariusza w EMC Lab Assistant" width="49%">
+  <img src="Documentation/Assets/screenshots/02-dane-przenikow.png" alt="Dane przykładowe dla pomiaru przeników" width="49%">
+</p>
+<p align="center">
+  <img src="Documentation/Assets/screenshots/03-podsumowanie-przenikow.png" alt="Wzór i 95 procentowy przedział ufności" width="49%">
+  <img src="Documentation/Assets/screenshots/04-wykres-przenikow.png" alt="Wykres przeników NEXT i FEXT" width="49%">
+</p>
 
-Szczegóły audytu: [Documentation/COURSE_COVERAGE.md](Documentation/COURSE_COVERAGE.md).
+## Architektura i przepływ pracy
 
-## Interfejs i wzory
+<p align="center">
+  <img src="Documentation/Assets/przeplyw_scenariuszy.png" alt="Przepływ czterech kreatorów pomiarowych" width="78%">
+</p>
 
-- minimalny rozmiar okna: 820 x 600,
-- pionowe przewijanie treści i przewijanie tabel,
-- formularze zawijające pola przy mniejszej szerokości,
-- osobny obszar statusu eksportu,
-- równania składane przez CSharpMath zamiast surowego tekstu,
-- testy headless wykrywające kolizje przycisków z tekstem.
+Każdy kreator kończy się wynikiem gotowym do eksportu. Warstwa interfejsu Avalonia XAML komunikuje się z modelami widoku MVVM, modelami danych i usługami obliczeniowymi.
 
-## Import i eksport
+<p align="center">
+  <img src="Documentation/Assets/architektura.png" alt="Architektura logiczna EMC Lab Assistant" width="78%">
+</p>
 
-CSV/TXT może używać średnika, tabulatora albo przecinka. Parser obsługuje
-polski i niezmienny format liczb. Scenariusz nr 3 odczytuje dodatkowo MATLAB 5.
+## Technologie
 
-Na ostatnim kroku dostępne są:
+- C# i .NET 8
+- Avalonia UI 12 oraz XAML dla Windows i Linux
+- CommunityToolkit.Mvvm i architektura MVVM
+- CSharpMath dla czytelnego składu równań
+- DocumentFormat.OpenXml dla raportów DOCX
+- MatFileHandler dla plików MATLAB
 
-- `Eksportuj CSV` - dane surowe, pośrednie i podsumowanie,
-- `Eksportuj DOCX` - raport z metadanymi, równaniami, tabelami i miejscem na
-  wnioski.
+## Dokumentacja
 
-## Budowanie i testy
+- [Dokumentacja techniczna](Documentation/Final/01_Dokumentacja_techniczna_EMC_Lab_Assistant.docx)
+- [Raport projektowy dla prowadzącego](Documentation/Final/02_Raport_projektowy_dla_prowadzacego.docx)
+- [Instrukcja użytkowania](Documentation/Final/03_Instrukcja_uzytkowania_EMC_Lab_Assistant.docx)
+- [Rejestr pokrycia materiału przedmiotu](Documentation/COURSE_COVERAGE.md)
+
+## Budowanie ze źródeł
 
 Wymagany jest .NET 8 SDK.
 
-```powershell
+~~~powershell
 dotnet restore CrosstalkAnalyzer.sln
 dotnet build CrosstalkAnalyzer.sln -c Release
 dotnet run --project CrosstalkAnalyzer.csproj
-```
+~~~
 
 Testy obliczeń, importu, eksportu i nawigacji:
 
-```powershell
-dotnet run --project Tests/CrosstalkAnalyzer.CalculationChecks
-```
+~~~powershell
+dotnet run --project Tests/CrosstalkAnalyzer.CalculationChecks -c Release
+dotnet run --project Tests/CrosstalkAnalyzer.UiTests -c Release
+~~~
 
-Testy układu Avalonia w trybie headless:
+## Licencja i zgłoszenia
 
-```powershell
-dotnet run --project Tests/CrosstalkAnalyzer.UiTests
-```
+Projekt jest udostępniany na warunkach [licencji MIT](LICENSE).
 
-## Publikowanie
+Masz błąd, pomysł na scenariusz lub poprawę dokumentacji? [Otwórz zgłoszenie w GitHub Issues](https://github.com/haribo841/Electromagnetic-Compatibility/issues/new/choose).
 
-Windows x64:
+## Archiwum opisu technicznego
 
-```powershell
-dotnet publish CrosstalkAnalyzer.csproj -c Release -r win-x64 --self-contained true
-```
-
-Linux x64:
-
-```powershell
-dotnet publish CrosstalkAnalyzer.csproj -c Release -r linux-x64 --self-contained true
-```
-
-Projekt celuje w .NET 8 i Avalonia 12. Jest przeznaczony dla Windows 10/11
-oraz Linux x64. Windows 7 i Windows 8.1 nie są oficjalnie wspierane przez
-runtime .NET 8.
+Szczegółowy, wcześniejszy opis modułów, importu, eksportu oraz publikowania zachowano w [archiwum README z 6 września 2026 r.](Documentation/Archive/README_2026-09-06.md).
